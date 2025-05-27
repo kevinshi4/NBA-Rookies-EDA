@@ -1,0 +1,27 @@
+library(readr)
+library(dplyr)
+nba_data <- read_csv("nba_rookie_data_cleaned.csv")
+head(nba_data)
+summary(nba_data)
+nba_data %>%
+  select(where(is.numeric)) %>%
+  summary()
+
+output when the code is run:
+Year Drafted        GP             MPpg           PTSpg             FGpg             FG%             3P%              FT%             ORBpg       
+ Min.   :1980   Min.   : 1.00   Min.   : 0.67   Min.   : 0.000   Min.   : 0.000   Min.   : 0.00   Min.   :  0.00   Min.   :  0.00   Min.   :0.0000  
+ 1st Qu.:1990   1st Qu.:42.00   1st Qu.:10.60   1st Qu.: 3.400   1st Qu.: 1.300   1st Qu.:37.70   1st Qu.:  0.00   1st Qu.: 59.10   1st Qu.:0.4000  
+ Median :2001   Median :59.00   Median :15.50   Median : 5.300   Median : 2.000   Median :42.70   Median : 17.80   Median : 69.50   Median :0.7000  
+ Mean   :2001   Mean   :56.04   Mean   :17.01   Mean   : 6.465   Mean   : 2.488   Mean   :38.21   Mean   : 16.93   Mean   : 60.98   Mean   :0.9495  
+ 3rd Qu.:2012   3rd Qu.:75.75   3rd Qu.:22.50   3rd Qu.: 8.400   3rd Qu.: 3.208   3rd Qu.:47.10   3rd Qu.: 31.80   3rd Qu.: 76.70   3rd Qu.:1.3000  
+ Max.   :2019   Max.   :82.00   Max.   :40.90   Max.   :28.200   Max.   :10.200   Max.   :73.70   Max.   :100.00   Max.   :100.00   Max.   :5.4000  
+                                                                                                                                                    
+     DRBpg           TRBpg            ASTpg            STLpg          BLKpg            TOVpg            Age         was_all_star   
+ Min.   :0.000   Min.   : 0.000   Min.   : 0.000   Min.   :0.00   Min.   :0.0000   Min.   :0.000   Min.   :18.00   Min.   :0.0000  
+ 1st Qu.:1.000   1st Qu.: 1.500   1st Qu.: 0.500   1st Qu.:0.30   1st Qu.:0.1000   1st Qu.:0.600   1st Qu.:21.00   1st Qu.:0.0000  
+ Median :1.700   Median : 2.400   Median : 1.000   Median :0.50   Median :0.2000   Median :0.900   Median :22.00   Median :0.0000  
+ Mean   :2.005   Mean   : 2.955   Mean   : 1.449   Mean   :0.58   Mean   :0.3684   Mean   :1.113   Mean   :22.36   Mean   :0.1274  
+ 3rd Qu.:2.600   3rd Qu.: 3.800   3rd Qu.: 1.900   3rd Qu.:0.80   3rd Qu.:0.5000   3rd Qu.:1.400   3rd Qu.:23.00   3rd Qu.:0.0000  
+ Max.   :9.600   Max.   :13.900   Max.   :10.600   Max.   :2.50   Max.   :5.0000   Max.   :4.400   Max.   :35.00   Max.   :1.0000  
+                                                                                                   NA's   :189                     
+> 
