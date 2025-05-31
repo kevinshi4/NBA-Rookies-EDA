@@ -29,7 +29,7 @@ Year Drafted        GP             MPpg           PTSpg             FGpg        
 library(tidyverse)
 
 # Load data
-df <- read_csv("nba_rookie_data_cleaned.csv")
+df <- read_csv("/Users/sparshjain/Downloads/nba_rookie_data_cleaned.csv")
 
 # Filter out rows with missing key columns
 df_clean <- df %>%
@@ -95,5 +95,5 @@ conf_stats <- df_clean %>%
   mutate(`All-Star Rate (%)` = `All-Star` / (`All-Star` + `Non All-Star`) * 100)
 
 ggplot(conf_stats, aes(x = Conf, y = `All-Star Rate (%)`)) +
-  geom_col(fill = "steelblue") +
+  geom_col(fill = "grey30") +
   labs(title = "All-Star Rate by Conference", x = "Conference", y = "All-Star Rate (%)")
