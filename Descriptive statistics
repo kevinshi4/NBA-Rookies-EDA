@@ -70,11 +70,6 @@ df_clean %>%
   labs(title = "Points per Game by Year Drafted", x = "Draft Year", y = "Points Per Game") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-# making a violin plot for minutes per game by conference 
-ggplot(df_clean, aes(x = Conf, y = MPpg, fill = AllStarStatus)) +
-  geom_violin(trim = FALSE, alpha = 0.7, position = position_dodge(1)) +
-  labs(title = "Minutes per Game by Conference and All-Star Status", x = "Conference", y = "Minutes Per Game")
-
 # making a histogram for total rebounds per game 
 ggplot(df_clean, aes(x = TRBpg, fill = AllStarStatus)) +
   geom_histogram(alpha = 0.6, bins = 30, position = "identity") +
