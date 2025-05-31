@@ -25,3 +25,80 @@ Year Drafted        GP             MPpg           PTSpg             FGpg        
  Max.   :9.600   Max.   :13.900   Max.   :10.600   Max.   :2.50   Max.   :5.0000   Max.   :4.400   Max.   :35.00   Max.   :1.0000  
                                                                                                    NA's   :189                     
 > 
+# Load libraries
+library(tidyverse)
+
+# Load data
+df <- read_csv("nba_rookie_data_cleaned.csv")
+
+# Filter out rows with missing key columns
+df_clean <- df %>%
+  filter(!is.na(Age), !is.na(Conf), !is.na(`Debut Team`))
+
+# Add All-Star status label
+df_clean <- df_clean %>%
+  mutate(AllStarStatus = ifelse(was_all_star == 1, "All-Star", "Non All-Star"))
+#if we discard the above code, then this is the code for the summary statistics 
+numeric_cols <- c("MPpg", "PTSpg", "FGpg", "FG%", "3P%", "FT%", 
+                  "ORBpg", "DRBpg", "TRBpg", "ASTpg", "STLpg", "BLKpg", "TOVpg")
+
+summary_stats <- df_clean %>%
+  group_by(AllStarStatus) %>%
+  summarise(across(all_of(numeric_cols),
+                   list(mean = mean, median = median, min = min, max = max, sd = sd),
+                   na.rm = TRUE),
+            .groups = "drop")
+
+print(summary_stats)
+
+#making the histogram for age distribution of the players
+ggplot(df_clean, aes(x = Age, fill = AllStarStatus)) +
+  geom_histogram(alpha = 0.6, bins = 30, position = "identity") +
+  geom_density(alpha = 0.3) +
+  labs(title = "Age Distribution by All-Star Status", x = "Age", y = "Count")
+
+# making a Boxplot to show the points per game by year drafted 
+top_years <- df_clean %>%
+  count(`Year Drafted`) %>%
+  top_n(10, n) %>%
+  pull(`Year Drafted`)
+
+df_clean %>%
+  filter(`Year Drafted` %in% top_years) %>%
+  ggplot(aes(x = factor(`Year Drafted`), y = PTSpg, fill = AllStarStatus)) +
+  geom_boxplot() +
+  labs(title = "Points per Game by Year Drafted", x = "Draft Year", y = "Points Per Game") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# making a violin plot for minutes per game by conference 
+ggplot(df_clean, aes(x = Conf, y = MPpg, fill = AllStarStatus)) +
+  geom_violin(trim = FALSE, alpha = 0.7, position = position_dodge(1)) +
+  labs(title = "Minutes per Game by Conference and All-Star Status", x = "Conference", y = "Minutes Per Game")
+
+# making a histogram for total rebounds per game 
+ggplot(df_clean, aes(x = TRBpg, fill = AllStarStatus)) +
+  geom_histogram(alpha = 0.6, bins = 30, position = "identity") +
+  geom_density(alpha = 0.3) +
+  labs(title = "Total Rebounds per Game Distribution", x = "Rebounds Per Game", y = "Count")
+
+# making a histogram for games played 
+ggplot(df_clean, aes(x = GP, fill = AllStarStatus)) +
+  geom_histogram(alpha = 0.6, bins = 30, position = "identity") +
+  geom_density(alpha = 0.3) +
+  labs(title = "Games Played Distribution by All-Star Status", x = "Games Played", y = "Count")
+
+# making a scatterplot for assists vs rebounds 
+ggplot(df_clean, aes(x = ASTpg, y = TRBpg, color = AllStarStatus)) +
+  geom_point(alpha = 0.6) +
+  labs(title = "Assists vs Rebounds per Game", x = "Assists Per Game", y = "Rebounds Per Game")
+
+# making a bar chart for all-star rate by conference 
+conf_stats <- df_clean %>%
+  group_by(Conf, AllStarStatus) %>%
+  summarise(Count = n(), .groups = "drop") %>%
+  pivot_wider(names_from = AllStarStatus, values_from = Count, values_fill = 0) %>%
+  mutate(`All-Star Rate (%)` = `All-Star` / (`All-Star` + `Non All-Star`) * 100)
+
+ggplot(conf_stats, aes(x = Conf, y = `All-Star Rate (%)`)) +
+  geom_col(fill = "steelblue") +
+  labs(title = "All-Star Rate by Conference", x = "Conference", y = "All-Star Rate (%)")
