@@ -11,13 +11,13 @@ library(tidyr)
 #setwd()
 
 # load and inspect data
-df_rookie_data_main <- read_csv("nba_rookie_data_1980-2016.csv")
+df_rookie_data_main <- read_csv("raw_data/nba_rookie_data_1980-2016.csv")
 glimpse(df_rookie_data_main)
-df_rookie_hof_data <- read_csv("nba_rookie_hof_data_1980-2016.csv")
+df_rookie_hof_data <- read_csv("raw_data/nba_rookie_hof_data_1980-2016.csv")
 glimpse(df_rookie_hof_data)
-df_rookie_data_extra <- read_csv("nba_rookie_data_1979-2020.csv")
+df_rookie_data_extra <- read_csv("raw_data/nba_rookie_data_1979-2020.csv")
 glimpse(df_rookie_data_extra)
-df_allstar_data <- read_csv("nba_all_star_data_1980-2022.csv")
+df_allstar_data <- read_csv("raw_data/nba_all_star_data_1980-2022.csv")
 glimpse(df_allstar_data)
 
 # Joins required:

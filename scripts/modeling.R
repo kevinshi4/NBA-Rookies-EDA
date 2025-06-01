@@ -1,5 +1,8 @@
 # clear environment
 rm(list = ls())
+install.packages("randomForest")
+install.packages("caret", dependencies = TRUE)
+
 
 # load needed libraries
 library(readr)
@@ -46,6 +49,10 @@ confusionMatrix(pred, test$was_all_star)
 
 # feature importance
 varImpPlot(rf_model)
+
+png("images/feat_import.png", width = 800, height = 600)
+varImpPlot(rf_model)
+dev.off()
 
 # References
 # https://www.r-bloggers.com/2021/04/random-forest-in-r/
