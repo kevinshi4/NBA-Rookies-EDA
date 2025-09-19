@@ -1,4 +1,9 @@
-# INFO332-Project-NBA-Rookies
+# NBA-Rookies-EDA
+
+
+INFO 332 Exploratory Data Analytics | Spring 2025 | Final Project
+
+## About
 
 This project analyzes NBA rookie performance statistics from 1980 to 2020. The primary goal is to identify patterns in rookie year data and determine which statistical indicators are associated with a player eventually becoming an NBA All-Star.
 
