@@ -1,6 +1,5 @@
 # NBA-Rookies-EDA
 
-
 INFO 332 Exploratory Data Analytics | Spring 2025 | Final Project
 
 ## About
